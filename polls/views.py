@@ -29,6 +29,16 @@ class ResultsView(generic.DetailView):
     model = Question
     template_name = 'polls/results.html'
 
+def login(request):
+    from django import forms
+    class NameForm(forms.Form):
+        your_name = forms.CharField(label='Your name', max_length=100)
+        your_password = forms.CharField(label='Password', max_length=100)
+
+    template = "polls/login.html"
+    context = { "form" : NameForm() }
+    return render( request, template, context )
+
 def vote(request, question_id):
 	question = get_object_or_404(Question, pk=question_id)
 	try:
